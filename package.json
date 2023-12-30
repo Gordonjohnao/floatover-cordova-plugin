@@ -1,0 +1,43 @@
+{
+    "name": "cordova-plugin-floatover",
+    "version": "0.0.1",
+    "description": "A Cordova plugin for Android that allows users to display simple alert dialogs.",
+    "cordova": {
+      "id": "cordova-plugin-floatover",
+      "platforms": [
+        "android"
+      ]
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/Gordonjohnao/floatover-cordova-plugin"
+    },
+    "keywords": [
+      "Dialog",
+      "Notification",
+      "Message",
+      "Alert",
+      "ecosystem:cordova",
+      "cordova-android"
+    ],
+    "engines": [
+        {
+          "name": "cordova",
+          "version": ">=3.0.0"
+        },
+        {
+          "name": "android-sdk",
+          "version": ">=16"
+        },
+        {
+          "name": "windows-sdk",
+          "version": ">=10.0.14393.0"
+        }
+      ],
+    "author": "Querysoft Technologies",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/Gordonjohnao/floatover-cordova-plugin"
+    },
+    "homepage": "https://github.com/Gordonjohnao/floatover-cordova-plugin#readme"
+  }
