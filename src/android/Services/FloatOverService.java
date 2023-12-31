@@ -69,6 +69,7 @@ import java.util.Date;
      ImageView imageHead;
      ServiceParameters serviceParameters;
      private GestureDetector gestureDetector;
+     private Context mContext;
 
     private Handler handler = new Handler();
     private int blinkDuration = 500; // Blinking duration in milliseconds
@@ -176,7 +177,11 @@ import java.util.Date;
                          //windowManager.addView(floatOverView, params_head_view);
                          //showKeyDispatureVisibilty(enable_hardware_back);
 			
-			 mContext.startActivity(new Intent(mContext,com.beta23.driverapp.MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+			// Inside a method or constructor, initialize mContext
+			mContext = cordova.getActivity; /* some way to get a valid Context, such as getActivity() in a Fragment or this in an Activity */
+			
+			// Now you can use mContext
+			mContext.startActivity(new Intent(mContext, com.beta23.driverapp.MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                          //Log.d("TAG","Click");
                      }else {
                          switch (event.getAction()) {
