@@ -169,6 +169,10 @@ import java.util.Date;
                          //floatOverHead = null;
                          //windowManager.addView(floatOverView, params_head_view);
                          //showKeyDispatureVisibilty(enable_hardware_back);
+
+	                Context context = cordova.getActivity().getApplicationContext();
+                        Intent intent = new Intent(context, MainActivity.class);
+                        cordova.getActivity().startActivity(intent);
                          //Log.d("TAG","Click");
                      }else {
                          switch (event.getAction()) {
