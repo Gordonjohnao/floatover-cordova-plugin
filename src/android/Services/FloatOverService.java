@@ -95,7 +95,7 @@ import java.util.Date;
          imageHead = (ImageView) floatOverHead.findViewById(R.id.imageHead);
 	 //startBlinkingAnimation();
 	// Save the original border color
-	borderColorOriginal = getOriginalBorderColor(imageHead);
+	 borderColorOriginal = Color.BLUE;
         // Set the blinking color manually (for example, a lighter shade of blue)
         borderColorBlink = Color.parseColor("#d90f23"); // Manually set the color
         // Start the blinking animation
@@ -278,7 +278,7 @@ private void startWaveAnimation() {
         // Start the animation
         imageHead.startAnimation(blinkAnimation);
     }*/
-	private void startBlinkingAnimation() {
+private void startBlinkingAnimation() {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -289,9 +289,10 @@ private void startWaveAnimation() {
     }
 
     private void animateBorderColor(int fromColor, int toColor) {
+        GradientDrawable borderDrawable = createBorderDrawable(toColor);
         ObjectAnimator animator = ObjectAnimator.ofObject(
-                imageHead.getBackground(),
-                "strokeColor",
+                imageHead,
+                "borderColor",
                 new ArgbEvaluator(),
                 fromColor,
                 toColor
@@ -299,6 +300,14 @@ private void startWaveAnimation() {
 
         animator.setDuration(blinkDuration / 2); // Blinking speed
         animator.start();
+    }
+
+    private GradientDrawable createBorderDrawable(int color) {
+        GradientDrawable borderDrawable = new GradientDrawable();
+        borderDrawable.setShape(GradientDrawable.OVAL);
+        borderDrawable.setStroke(4, color); // Adjust border width as needed
+        imageHead.setBackground(borderDrawable);
+        return borderDrawable;
     }
 
 	 
