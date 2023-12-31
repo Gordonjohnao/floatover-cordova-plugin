@@ -24,6 +24,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
+
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -31,7 +32,11 @@ import android.webkit.JavascriptInterface;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import android.widget.TextView;
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Bundle;
+
 
 import org.apache.cordova.floatOver.Services.ServiceParameters;
 import org.apache.cordova.floatOver.GeneralUtils.KeyDispatchLayout;
@@ -59,6 +64,11 @@ import java.util.Date;
      ServiceParameters serviceParameters;
      private GestureDetector gestureDetector;
 
+    private Handler handler = new Handler();
+    private int blinkDuration = 500; // Blinking duration in milliseconds
+    private int borderColorOriginal;
+    private int borderColorBlink;	 
+
 
      @Override
      public IBinder onBind(Intent intent) {
@@ -84,9 +94,14 @@ import java.util.Date;
          webView = (WebView) floatOverView.findViewById(R.id.webView);
          imageHead = (ImageView) floatOverHead.findViewById(R.id.imageHead);
 	 //startBlinkingAnimation();
+	// Save the original border color
+        borderColorOriginal = ((GradientDrawable) imageHead.getBackground()).getStrokeColor();
+        // Set the blinking color manually (for example, a lighter shade of blue)
+        borderColorBlink = Color.parseColor("#8080FF"); // Manually set the color
+        // Start the blinking animation
 	 if (isInternetActive()) {
             // Start the wave animation
-            startWaveAnimation();
+             startBlinkingAnimation();
         }
          imgClose = (ImageView) floatOverView.findViewById(R.id.imgClose);
          imgClose.setOnClickListener(new View.OnClickListener() {
@@ -235,7 +250,7 @@ private void startWaveAnimation() {
     }
 
 // this is for blinking functionality
-	private void startBlinkingAnimation() {
+	/*private void startBlinkingAnimation() {
         // Create a blinking animation
         Animation blinkAnimation = new AlphaAnimation(1, 0);
         blinkAnimation.setDuration(500); // Duration of each blink in milliseconds
@@ -262,6 +277,28 @@ private void startWaveAnimation() {
 
         // Start the animation
         imageHead.startAnimation(blinkAnimation);
+    }*/
+	  private void startBlinkingAnimation() {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                animateBorderColor(borderColorBlink, borderColorOriginal);
+                handler.postDelayed(this, blinkDuration);
+            }
+        }, blinkDuration);
+    }
+
+    private void animateBorderColor(int fromColor, int toColor) {
+        ObjectAnimator animator = ObjectAnimator.ofObject(
+                imageHead.getBackground(),
+                "strokeColor",
+                new ArgbEvaluator(),
+                fromColor,
+                toColor
+        );
+
+        animator.setDuration(blinkDuration / 2); // Blinking speed
+        animator.start();
     }
 
 	 
