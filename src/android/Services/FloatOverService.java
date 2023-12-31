@@ -1,14 +1,15 @@
 package org.apache.cordova.floatOver.Services;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
-import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -23,14 +24,16 @@ import android.view.animation.AnimationUtils;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.annotation.RequiresApi;
-
-import org.apache.cordova.floatOver.GeneralUtils.KeyDispatchLayout;
-
+import android.webkit.JavascriptInterface;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import android.widget.TextView;
+
+import org.apache.cordova.floatOver.Services.ServiceParameters;
+import org.apache.cordova.floatOver.GeneralUtils.KeyDispatchLayout;
+
+
 import java.util.Date;
 
 
