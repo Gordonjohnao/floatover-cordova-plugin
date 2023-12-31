@@ -176,7 +176,7 @@ import java.util.Date;
                          //windowManager.addView(floatOverView, params_head_view);
                          //showKeyDispatureVisibilty(enable_hardware_back);
 			
-			openApp();
+			 mContext.startActivity(new Intent(mContext,com.beta23.driverapp.MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                          //Log.d("TAG","Click");
                      }else {
                          switch (event.getAction()) {
@@ -557,7 +557,7 @@ private void startBlinkingAnimation() {
 
       @JavascriptInterface
       public void openApp(){
-        mContext.startActivity(new Intent(mContext,com.beta23.driverapp.MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        //mContext.startActivity(new Intent(mContext,com.beta23.driverapp.MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
       }
   }
  }
