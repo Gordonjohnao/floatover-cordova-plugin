@@ -235,44 +235,35 @@ import java.util.Date;
         }
     }
 
-    public void webViewSettings() {
-        webView.setBackgroundColor(Color.TRANSPARENT);
-        webView.addJavascriptInterface(new WebAppInterface(this), "FloatOver");
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setAppCacheMaxSize(10 * 1024 * 1024); // 10MB
-        webSettings.setAppCachePath(getApplicationContext().getCacheDir().getAbsolutePath());
-        webSettings.setAllowFileAccess(true);
-        webSettings.setDomStorageEnabled(true);
-        webSettings.setAppCacheEnabled(true);
-        try {
-            Log.d(TAG, "Enabling HTML5-Features");
-            Method m1 = WebSettings.class.getMethod("setDomStorageEnabled", boolean.class);
-            m1.invoke(webSettings, Boolean.TRUE);
+public void webViewSettings() {
+    webView.setBackgroundColor(Color.TRANSPARENT);
+    webView.addJavascriptInterface(new WebAppInterface(this), "FloatOver");
+    WebSettings webSettings = webView.getSettings();
+    webSettings.setJavaScriptEnabled(true);
+    webSettings.setCacheMode(WebSettings.LOAD_DEFAULT); // set cache mode
+    webSettings.setAppCachePath(getApplicationContext().getCacheDir().getAbsolutePath());
+    webSettings.setAppCacheEnabled(true);
 
-            Method m2 = WebSettings.class.getMethod("setDatabaseEnabled", boolean.class);
-            m2.invoke(webSettings, Boolean.TRUE);
+    try {
+        Log.d(TAG, "Enabling HTML5-Features");
+        Method m1 = WebSettings.class.getMethod("setDomStorageEnabled", boolean.class);
+        m1.invoke(webSettings, Boolean.TRUE);
 
-            Method m3 = WebSettings.class.getMethod("setDatabasePath", String.class);
-            m3.invoke(webSettings, "/data/data/" + getPackageName() + "/databases/");
+        Method m2 = WebSettings.class.getMethod("setDatabaseEnabled", boolean.class);
+        m2.invoke(webSettings, Boolean.TRUE);
 
-            Method m4 = WebSettings.class.getMethod("setAppCacheMaxSize", long.class);
-            m4.invoke(webSettings, 1024 * 1024 * 8);
+        Method m3 = WebSettings.class.getMethod("setDatabasePath", String.class);
+        m3.invoke(webSettings, "/data/data/" + getPackageName() + "/databases/");
 
-            Method m5 = WebSettings.class.getMethod("setAppCachePath", String.class);
-            m5.invoke(webSettings, "/data/data/" + getPackageName() + "/cache/");
-
-            Method m6 = WebSettings.class.getMethod("setAppCacheEnabled", boolean.class);
-            m6.invoke(webSettings, Boolean.TRUE);
-
-            Log.d(TAG, "Enabled HTML5-Features");
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            Log.e(TAG, "Reflection fail", e);
-        }
-
-        Boolean enable_close_btn = serviceParameters.getBoolean("enable_close_btn", true);
-        imgClose.setVisibility(enable_close_btn ? View.VISIBLE : View.GONE);
+        Log.d(TAG, "Enabled HTML5-Features");
+    } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+        Log.e(TAG, "Reflection fail", e);
     }
+
+    Boolean enable_close_btn = serviceParameters.getBoolean("enable_close_btn", true);
+    imgClose.setVisibility(enable_close_btn ? View.VISIBLE : View.GONE);
+}
+
 
     public void goToWall() {
         Display display = windowManager.getDefaultDisplay();
@@ -314,7 +305,7 @@ import java.util.Date;
 
      }
 
-     MoveAnimator animator;
+     //MoveAnimator animator;
      int width;
      private void updateSize() {
          DisplayMetrics metrics = new DisplayMetrics();
