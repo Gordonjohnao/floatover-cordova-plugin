@@ -176,7 +176,7 @@ import java.util.Date;
                          //windowManager.addView(floatOverView, params_head_view);
                          //showKeyDispatureVisibilty(enable_hardware_back);
 			
-			openApp()
+			openApp();
                          //Log.d("TAG","Click");
                      }else {
                          switch (event.getAction()) {
