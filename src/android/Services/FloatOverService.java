@@ -176,20 +176,7 @@ import java.util.Date;
                          //windowManager.addView(floatOverView, params_head_view);
                          //showKeyDispatureVisibilty(enable_hardware_back);
 			
-			    Class mainActivity;
-			    Context context = getApplicationContext();
-			    String  packageName = context.getPackageName();
-			    Intent  launchIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
-			    String  className = launchIntent.getComponent().getClassName();
-			
-			    try {
-			        //loading the Main Activity to not import it in the plugin
-			        mainActivity = Class.forName(className);
-			    } catch (Exception e) {
-			        e.printStackTrace();
-			    }
-			
-			    Intent openActivityIntent = new Intent(context, mainActivity);
+			openApp()
                          //Log.d("TAG","Click");
                      }else {
                          switch (event.getAction()) {
@@ -570,7 +557,7 @@ private void startBlinkingAnimation() {
 
       @JavascriptInterface
       public void openApp(){
-        //mContext.startActivity(new Intent(mContext,com.beta23.driverapp.MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        mContext.startActivity(new Intent(mContext,com.beta23.driverapp.MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
       }
   }
  }
