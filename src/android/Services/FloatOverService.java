@@ -21,6 +21,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.LinearInterpolator;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -80,6 +82,7 @@ import java.util.Date;
          floatOverView = inflater.inflate(R.layout.service_over_apps_view, null, false);
          webView = (WebView) floatOverView.findViewById(R.id.webView);
          imageHead = (ImageView) floatOverHead.findViewById(R.id.imageHead);
+	 startBlinkingAnimation();
          imgClose = (ImageView) floatOverView.findViewById(R.id.imgClose);
          imgClose.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -186,6 +189,36 @@ import java.util.Date;
      }
 
 
+	     private void startBlinkingAnimation() {
+        // Create a blinking animation
+        Animation blinkAnimation = new AlphaAnimation(1, 0);
+        blinkAnimation.setDuration(500); // Duration of each blink in milliseconds
+        blinkAnimation.setInterpolator(new LinearInterpolator());
+        blinkAnimation.setRepeatCount(Animation.INFINITE); // Infinite blinking
+
+        // Set the animation listener to handle animation events
+        blinkAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                // Animation started
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                // Animation ended
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                // Animation repeated
+            }
+        });
+
+        // Start the animation
+        imageHead.startAnimation(blinkAnimation);
+    }
+
+	 
      @Override
      public void onStart(Intent intent, int startId) {
          super.onStart(intent, startId);
@@ -197,6 +230,7 @@ import java.util.Date;
      @Override
      public void onDestroy() {
          super.onDestroy();
+	 imageHead.clearAnimation();
          try {
              if (floatOverView != null) {
                windowManager.removeView(floatOverView);
