@@ -95,7 +95,7 @@ import java.util.Date;
          imageHead = (ImageView) floatOverHead.findViewById(R.id.imageHead);
 	 //startBlinkingAnimation();
 	// Save the original border color
-	borderColorOriginal = Color.BLUE;
+	borderColorOriginal = getOriginalBorderColor(imageHead);
         // Set the blinking color manually (for example, a lighter shade of blue)
         borderColorBlink = Color.parseColor("#d90f23"); // Manually set the color
         // Start the blinking animation
@@ -278,7 +278,7 @@ private void startWaveAnimation() {
         // Start the animation
         imageHead.startAnimation(blinkAnimation);
     }*/
-	  private void startBlinkingAnimation() {
+	private void startBlinkingAnimation() {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
