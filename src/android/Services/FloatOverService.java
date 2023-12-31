@@ -165,11 +165,11 @@ import java.util.Date;
                      if (gestureDetector.onTouchEvent(event)) {
                          // ....  click on the whole over app head event
                          Log.d("TAG","Click");
-                         windowManager.removeView(floatOverHead);
-                         floatOverHead = null;
-                         windowManager.addView(floatOverView, params_head_view);
-                         showKeyDispatureVisibilty(enable_hardware_back);
-                         Log.d("TAG","Click");
+                         //windowManager.removeView(floatOverHead);
+                         //floatOverHead = null;
+                         //windowManager.addView(floatOverView, params_head_view);
+                         //showKeyDispatureVisibilty(enable_hardware_back);
+                         //Log.d("TAG","Click");
                      }else {
                          switch (event.getAction()) {
                              case MotionEvent.ACTION_DOWN:
