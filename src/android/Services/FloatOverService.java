@@ -37,6 +37,12 @@ import android.animation.ObjectAnimator;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
+import org.apache.cordova.CordovaWebView;
+import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.CordovaInterface;
+import android.app.Activity;
+
 
 import org.apache.cordova.floatOver.Services.ServiceParameters;
 import org.apache.cordova.floatOver.GeneralUtils.KeyDispatchLayout;
