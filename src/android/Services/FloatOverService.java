@@ -240,9 +240,11 @@ public void webViewSettings() {
     webView.addJavascriptInterface(new WebAppInterface(this), "FloatOver");
     WebSettings webSettings = webView.getSettings();
     webSettings.setJavaScriptEnabled(true);
-    webSettings.setCacheMode(WebSettings.LOAD_DEFAULT); // set cache mode
-    webSettings.setAppCachePath(getApplicationContext().getCacheDir().getAbsolutePath());
-    webSettings.setAppCacheEnabled(true);
+    
+    // Set up application cache
+   // webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
+   // webSettings.setAppCachePath(getApplicationContext().getCacheDir().getAbsolutePath());
+   // webSettings.setAppCacheEnabled(true);
 
     try {
         Log.d(TAG, "Enabling HTML5-Features");
@@ -260,15 +262,9 @@ public void webViewSettings() {
         Log.e(TAG, "Reflection fail", e);
     }
 
-    // Alternative approach to set up the application cache
-    webSettings.setAppCachePath(getApplicationContext().getCacheDir().getAbsolutePath());
-    webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
-    webSettings.setAppCacheEnabled(true);
-
     Boolean enable_close_btn = serviceParameters.getBoolean("enable_close_btn", true);
     imgClose.setVisibility(enable_close_btn ? View.VISIBLE : View.GONE);
 }
-
 
 
     public void goToWall() {
