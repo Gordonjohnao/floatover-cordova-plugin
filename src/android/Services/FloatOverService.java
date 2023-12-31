@@ -42,7 +42,7 @@ import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaInterface;
 import android.app.Activity;
-
+import android.content.pm.PackageManager;
 
 import org.apache.cordova.floatOver.Services.ServiceParameters;
 import org.apache.cordova.floatOver.GeneralUtils.KeyDispatchLayout;
@@ -177,11 +177,9 @@ import java.util.Date;
                          //windowManager.addView(floatOverView, params_head_view);
                          //showKeyDispatureVisibilty(enable_hardware_back);
 			
-			// Inside a method or constructor, initialize mContext
-			mContext = cordova.getActivity(); /* some way to get a valid Context, such as getActivity() in a Fragment or this in an Activity */
-			
-			// Now you can use mContext
-			mContext.startActivity(new Intent(mContext, com.beta23.driverapp.MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+			// Example usage in an Activity
+                        openMainApp(this, "com.bet23.driverapp");
+
                          //Log.d("TAG","Click");
                      }else {
                          switch (event.getAction()) {
@@ -222,6 +220,19 @@ import java.util.Date;
              }
          });
      }
+ public static void openMainApp(Context context, String packageName) {
+        PackageManager packageManager = context.getPackageManager();
+        Intent intent = packageManager.getLaunchIntentForPackage(packageName);
+
+        if (intent != null) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        } else {
+            // The app with the specified package name is not installed
+            // Handle this case as needed
+        }
+    }
+	 
 // this is for wave animation
 
 private void startWaveAnimation() {
