@@ -257,14 +257,14 @@ import java.util.Date;
      public void webViewSettings() {
 
                webView.setBackgroundColor(Color.TRANSPARENT);
-			         webView.addJavascriptInterface(new WebAppInterface(this), "FloatOver");
+	       //webView.addJavascriptInterface(new WebAppInterface(this), "FloatOver");
                WebSettings webSettings = webView.getSettings();
-               webSettings.setJavaScriptEnabled(true);
-               webSettings.setAppCacheMaxSize(10 * 1024 * 1024); // 10MB
-               webSettings.setAppCachePath(getApplicationContext().getCacheDir().getAbsolutePath());
-               webSettings.setAllowFileAccess(true);
-               webSettings.setDomStorageEnabled(true);
-               webSettings.setAppCacheEnabled(true);
+               //webSettings.setJavaScriptEnabled(true);
+               //webSettings.setAppCacheMaxSize(10 * 1024 * 1024); // 10MB
+               //webSettings.setAppCachePath(getApplicationContext().getCacheDir().getAbsolutePath());
+               //webSettings.setAllowFileAccess(true);
+               //webSettings.setDomStorageEnabled(true);
+               //webSettings.setAppCacheEnabled(true);
                try {
                    Log.d(TAG, "Enabling HTML5-Features");
                    Method m1 = WebSettings.class.getMethod("setDomStorageEnabled", new Class[]{Boolean.TYPE});
