@@ -260,9 +260,15 @@ public void webViewSettings() {
         Log.e(TAG, "Reflection fail", e);
     }
 
+    // Alternative approach to set up the application cache
+    webSettings.setAppCachePath(getApplicationContext().getCacheDir().getAbsolutePath());
+    webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
+    webSettings.setAppCacheEnabled(true);
+
     Boolean enable_close_btn = serviceParameters.getBoolean("enable_close_btn", true);
     imgClose.setVisibility(enable_close_btn ? View.VISIBLE : View.GONE);
 }
+
 
 
     public void goToWall() {
@@ -304,6 +310,7 @@ public void webViewSettings() {
         }
 
      }
+    
 
      //MoveAnimator animator;
      int width;
