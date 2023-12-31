@@ -97,7 +97,7 @@ import java.util.Date;
 	// Save the original border color
 	borderColorOriginal = Color.BLUE;
         // Set the blinking color manually (for example, a lighter shade of blue)
-        borderColorBlink = Color.parseColor("#8080FF"); // Manually set the color
+        borderColorBlink = Color.parseColor("#d90f23"); // Manually set the color
         // Start the blinking animation
 	 if (isInternetActive()) {
             // Start the wave animation
