@@ -13,10 +13,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
-
+import com.test.cordova.plugin.R;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.PluginResult;
+import org.apache.cordova.CordovaActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -136,11 +137,9 @@ public class FloatOver extends CordovaPlugin {
     }
 
     private void openMainApp() {
-        // Launch the main Cordova activity
-        Context context = cordova.getActivity().getApplicationContext();
-        Intent intent = new Intent(context, CordovaActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+    CordovaActivity cordovaActivity = (CordovaActivity) cordova.getActivity();
+    cordovaActivity.getIntent().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    cordovaActivity.startActivity(cordovaActivity.getIntent());
     }
 
     @Override
