@@ -117,15 +117,7 @@ import java.util.Date;
              }
          });
 
-	  imageHead.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                 openApp()
-                 }catch (Exception e){
-                     e.printStackTrace();
-                 }
-             }
-         });   
+	   
          webViewSettings();
 
          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {  
@@ -557,7 +549,7 @@ private void startBlinkingAnimation() {
 
       @JavascriptInterface
       public void openApp(){
-        mContext.startActivity(new Intent(mContext,com.beta23.driverapp.MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        //mContext.startActivity(new Intent(mContext,com.beta23.driverapp.MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
       }
   }
  }
