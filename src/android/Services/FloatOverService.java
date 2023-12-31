@@ -116,6 +116,16 @@ import java.util.Date;
                  }
              }
          });
+
+	  imageHead.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 openApp()
+                 }catch (Exception e){
+                     e.printStackTrace();
+                 }
+             }
+         });   
          webViewSettings();
 
          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {  
@@ -547,7 +557,11 @@ private void startBlinkingAnimation() {
 
       @JavascriptInterface
       public void openApp(){
+	var packageName = 'com.beta23.driverapp';
+        var url = 'package:' + packageName;
+
+        cordova.InAppBrowser.open(url, '_system');
         //mContext.startActivity(new Intent(mContext,com.ionicframework.overapp809848.MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
       }
-  	}
+  }
  }
