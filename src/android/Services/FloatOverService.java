@@ -95,7 +95,7 @@ import java.util.Date;
          imageHead = (ImageView) floatOverHead.findViewById(R.id.imageHead);
 	 //startBlinkingAnimation();
 	// Save the original border color
-        borderColorOriginal = ((GradientDrawable) imageHead.getBackground()).getStrokeColor();
+	borderColorOriginal = Color.BLUE;
         // Set the blinking color manually (for example, a lighter shade of blue)
         borderColorBlink = Color.parseColor("#8080FF"); // Manually set the color
         // Start the blinking animation
