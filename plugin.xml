@@ -41,7 +41,7 @@
        <source-file src="src/android/GeneralUtils/KeyDispatchLayout.java" target-dir="src/org/apache/cordova/floatOver/GeneralUtils" />
        <source-file src="src/android/FloatOver.java" target-dir="src/org/apache/cordova/floatOver" />
         <source-file src="src/android/drawable/close.png" target-dir="src/main/res/drawable" />
-        <source-file src="src/android/drawable/rounded_image_background" target-dir="src/main/res/drawable" />
+        <source-file src="src/android/drawable/rounded_image_background.xml" target-dir="src/main/res/drawable" />
         <source-file src="src/android/layout/service_over_apps_head.xml" target-dir="src/main/res/layout" />
         <source-file src="src/android/layout/service_over_apps_view.xml" target-dir="src/main/res/layout" />
         <source-file src="src/android/layout/key_dispature.xml" target-dir="src/main/res/layout" />
