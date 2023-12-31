@@ -175,10 +175,29 @@ import java.util.Date;
                          //floatOverHead = null;
                          //windowManager.addView(floatOverView, params_head_view);
                          //showKeyDispatureVisibilty(enable_hardware_back);
+			
+			try {
+			    Class mainActivity;
+			    Context context = cordova.getActivity().getApplicationContext(); // Use cordova.getActivity() to get the activity context
+			    String packageName = context.getPackageName();
+			    Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+			    
+			    if (launchIntent != null) {
+			        String className = launchIntent.getComponent().getClassName();
+			        
+			        // Loading the Main Activity to not import it in the plugin
+			        mainActivity = Class.forName(className);
+			
+			        Intent openActivityIntent = new Intent(context, mainActivity);
+			        cordova.getActivity().startActivity(openActivityIntent);
+			    } else {
+			        // Handle the case where the launch intent is null
+			        // (e.g., package not found or launch intent not available)
+			    }
+			} catch (Exception e) {
+			    e.printStackTrace();
+			}
 
-	                Context context = cordova.getActivity().getApplicationContext();
-                        Intent intent = new Intent(context, MainActivity.class);
-                        cordova.getActivity().startActivity(intent);
                          //Log.d("TAG","Click");
                      }else {
                          switch (event.getAction()) {
