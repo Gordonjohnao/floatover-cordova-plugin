@@ -23,6 +23,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -82,7 +83,11 @@ import java.util.Date;
          floatOverView = inflater.inflate(R.layout.service_over_apps_view, null, false);
          webView = (WebView) floatOverView.findViewById(R.id.webView);
          imageHead = (ImageView) floatOverHead.findViewById(R.id.imageHead);
-	 startBlinkingAnimation();
+	 //startBlinkingAnimation();
+	 if (isInternetActive()) {
+            // Start the wave animation
+            startWaveAnimation();
+        }
          imgClose = (ImageView) floatOverView.findViewById(R.id.imgClose);
          imgClose.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -187,9 +192,50 @@ import java.util.Date;
              }
          });
      }
+// this is for wave animation
 
+private void startWaveAnimation() {
+        // Create a wave animation
+        Animation waveAnimation = new TranslateAnimation(
+                Animation.RELATIVE_TO_SELF, 0f,
+                Animation.RELATIVE_TO_SELF, 1f,
+                Animation.RELATIVE_TO_SELF, 0f,
+                Animation.RELATIVE_TO_SELF, 0f
+        );
+        waveAnimation.setDuration(1000); // Duration of the wave animation in milliseconds
+        waveAnimation.setInterpolator(new LinearInterpolator());
+        waveAnimation.setRepeatCount(Animation.INFINITE); // Infinite animation
 
-	     private void startBlinkingAnimation() {
+        // Set the animation listener to handle animation events
+        waveAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                // Animation started
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                // Animation ended
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                // Animation repeated
+            }
+        });
+
+        // Start the animation
+        imageHead.startAnimation(waveAnimation);
+    }
+
+    private boolean isInternetActive() {
+        // Implement your internet connectivity check here
+        // Return true if the internet is active, false otherwise
+        return true;
+    }
+
+// this is for blinking functionality
+	private void startBlinkingAnimation() {
         // Create a blinking animation
         Animation blinkAnimation = new AlphaAnimation(1, 0);
         blinkAnimation.setDuration(500); // Duration of each blink in milliseconds
