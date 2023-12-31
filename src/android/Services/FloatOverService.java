@@ -124,53 +124,57 @@ import java.util.Date;
         }
 
         overAppsHead.setOnTouchListener((v, event) -> {
-            Log.d(TAG, "onTouch ... Click");
-            if (event != null) {
-                if (gestureDetector.onTouchEvent(event)) {
-                    // ....  click on the whole over app head event
-                    Log.d(TAG, "Click");
-                    windowManager.removeView(overAppsHead);
-                    overAppsHead = null;
-                    windowManager.addView(overAppsView, params_head_view);
-                    showKeyDispatureVisibilty(enable_hardware_back);
-                    Log.d(TAG, "Click");
-                } else {
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
-                            Log.d(TAG, "ACTION_DOWN");
-                            int initialX = params_head_float.x;
-                            int initialY = params_head_float.y;
-                            float initialTouchX = event.getRawX();
-                            float initialTouchY = event.getRawY();
-                            updateSize();
-                            animator.stop();
+    Log.d(TAG, "onTouch ... Click");
+    if (event != null) {
+        if (gestureDetector.onTouchEvent(event)) {
+            // ....  click on the whole over app head event
+            Log.d(TAG, "Click");
+            windowManager.removeView(overAppsHead);
+            overAppsHead = null;
+            windowManager.addView(overAppsView, params_head_view);
+            showKeyDispatureVisibilty(enable_hardware_back);
+            Log.d(TAG, "Click");
+        } else {
+            int initialX = 0, initialY = 0;
+            float initialTouchX = 0, initialTouchY = 0;
 
-                            v.animate().scaleXBy(-0.1f).setDuration(100).start();
-                            v.animate().scaleYBy(-0.1f).setDuration(100).start();
-                            break;
-                        case MotionEvent.ACTION_MOVE:
-                            Log.d(TAG, "ACTION_MOVE");
-                            int x = initialX - (int) (event.getRawX() - initialTouchX);
-                            int y = initialY + (int) (event.getRawY() - initialTouchY);
-                            params_head_float.x = x;
-                            params_head_float.y = y;
-                            windowManager.updateViewLayout(overAppsHead, params_head_float);
-                            break;
-                        case MotionEvent.ACTION_UP:
-                            Boolean drag_to_side = serviceParameters.getBoolean("drag_to_side", true);
-                            if (drag_to_side) {
-                                goToWall();
-                            }
-                            Log.d(TAG, "ACTION_UP");
-                            v.animate().cancel();
-                            v.animate().scaleX(1f).setDuration(100).start();
-                            v.animate().scaleY(1f).setDuration(100).start();
-                            break;
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    Log.d(TAG, "ACTION_DOWN");
+                    initialX = params_head_float.x;
+                    initialY = params_head_float.y;
+                    initialTouchX = event.getRawX();
+                    initialTouchY = event.getRawY();
+                    updateSize();
+                    animator.stop();
+
+                    v.animate().scaleXBy(-0.1f).setDuration(100).start();
+                    v.animate().scaleYBy(-0.1f).setDuration(100).start();
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    Log.d(TAG, "ACTION_MOVE");
+                    int x = initialX - (int) (event.getRawX() - initialTouchX);
+                    int y = initialY + (int) (event.getRawY() - initialTouchY);
+                    params_head_float.x = x;
+                    params_head_float.y = y;
+                    windowManager.updateViewLayout(overAppsHead, params_head_float);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    Boolean drag_to_side = serviceParameters.getBoolean("drag_to_side", true);
+                    if (drag_to_side) {
+                        goToWall();
                     }
-                }
+                    Log.d(TAG, "ACTION_UP");
+                    v.animate().cancel();
+                    v.animate().scaleX(1f).setDuration(100).start();
+                    v.animate().scaleY(1f).setDuration(100).start();
+                    break;
             }
-            return false;
-        });
+        }
+    }
+    return false;
+  });
+
     }
 
     @Override
