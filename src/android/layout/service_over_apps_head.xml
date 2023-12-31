@@ -11,7 +11,7 @@
     android:layout_centerInParent="true"
     android:scaleType="centerCrop"
     android:src="@mipmap/ic_launcher"
-  />
+    android:background="@drawable/rounded_image_background" />
 
 
 </RelativeLayout>
