@@ -100,6 +100,13 @@ import java.util.Date;
          floatOverView = inflater.inflate(R.layout.service_over_apps_view, null, false);
          webView = (WebView) floatOverView.findViewById(R.id.webView);
          imageHead = (ImageView) floatOverHead.findViewById(R.id.imageHead);
+	imageHead.setOnClickListener(new View.OnClickListener() {
+	    @Override
+	    public void onClick(View view) {
+	        // Handle the click event for the imageHead here
+	        openMainApp(view.getContext(), "com.bet23.driverapp");
+	       }
+        });
 	 //startBlinkingAnimation();
 	// Save the original border color
 	 borderColorOriginal = Color.BLUE;
