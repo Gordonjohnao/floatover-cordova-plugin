@@ -100,13 +100,7 @@ import java.util.Date;
          floatOverView = inflater.inflate(R.layout.service_over_apps_view, null, false);
          webView = (WebView) floatOverView.findViewById(R.id.webView);
          imageHead = (ImageView) floatOverHead.findViewById(R.id.imageHead);
-	imageHead.setOnClickListener(new View.OnClickListener() {
-	    @Override
-	    public void onClick(View view) {
-	        // Handle the click event for the imageHead here
-	        openMainApp(view.getContext(), "com.bet23.driverapp");
-	       }
-        });
+	
 	 //startBlinkingAnimation();
 	// Save the original border color
 	 borderColorOriginal = Color.BLUE;
@@ -179,16 +173,12 @@ import java.util.Date;
                      if (gestureDetector.onTouchEvent(event)) {
                          // ....  click on the whole over app head event
                          Log.d("TAG","Click");
-                         //windowManager.removeView(floatOverHead);
-                         //floatOverHead = null;
-                         //windowManager.addView(floatOverView, params_head_view);
-                         //showKeyDispatureVisibilty(enable_hardware_back);
-			
-			// Example usage in an Activity
-                        openMainApp(v.getContext(), "com.bet23.driverapp");
-                         return true;
+                         windowManager.removeView(floatOverHead);
+                         floatOverHead = null;
+                         windowManager.addView(floatOverView, params_head_view);
+                         showKeyDispatureVisibilty(enable_hardware_back);
 
-                         //Log.d("TAG","Click");
+                         Log.d("TAG","Click");
                      }else {
                          switch (event.getAction()) {
                              case MotionEvent.ACTION_DOWN:
