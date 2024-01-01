@@ -178,7 +178,8 @@ import java.util.Date;
                          //showKeyDispatureVisibilty(enable_hardware_back);
 			
 			// Example usage in an Activity
-                        openMainApp(this, "com.bet23.driverapp");
+                        openMainApp(v.getContext(), "com.bet23.driverapp");
+                         return true;
 
                          //Log.d("TAG","Click");
                      }else {
