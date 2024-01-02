@@ -11,4 +11,7 @@ module.exports = {
     closeOverApp: function () {
         cordova.exec(nooperation, nooperation, 'FloatOver', 'close', []);
     }
+    closeFloatApp: function () {
+        cordova.exec(successCallback, failureCallback, 'FloatOver', 'close', []);
+    }
 };
