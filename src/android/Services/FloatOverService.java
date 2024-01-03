@@ -46,10 +46,6 @@ import android.content.pm.PackageManager;
 
 
 
-import android.content.pm.ResolveInfo;
-
-
-
 import org.apache.cordova.floatOver.Services.ServiceParameters;
 import org.apache.cordova.floatOver.GeneralUtils.KeyDispatchLayout;
 
@@ -181,12 +177,7 @@ import java.util.Date;
                          // ....  click on the whole over app head event
                          Log.d("TAG","Click");
                        
-                      // Replace "com.example.targetapp" with the package name of the app you want to open
-                      String targetPackageName = "com.beta23.driverapp";
-            
-                      openMainApp(context, targetPackageName);
-			     
-
+                     
                          Log.d("TAG","Click");
                      }else {
                          switch (event.getAction()) {
@@ -228,15 +219,7 @@ import java.util.Date;
          });
      }
 
-  private void openMainApp(Context context, String packageName) {
-        PackageManager packageManager = context.getPackageManager();
-
-        Intent launchIntent = packageManager.getLaunchIntentForPackage(packageName);
-        if (launchIntent != null) {
-            context.startActivity(launchIntent);
-        } 
-    }
-	 
+ 
   
 // this is for wave animation
 
