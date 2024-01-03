@@ -44,6 +44,12 @@ import org.apache.cordova.CordovaInterface;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 
+
+
+import android.content.pm.ResolveInfo;
+
+
+
 import org.apache.cordova.floatOver.Services.ServiceParameters;
 import org.apache.cordova.floatOver.GeneralUtils.KeyDispatchLayout;
 
@@ -70,6 +76,7 @@ import java.util.Date;
      ServiceParameters serviceParameters;
      private GestureDetector gestureDetector;
      private Context mContext;
+     private Context context;
 
     private Handler handler = new Handler();
     private int blinkDuration = 500; // Blinking duration in milliseconds
@@ -173,28 +180,12 @@ import java.util.Date;
                      if (gestureDetector.onTouchEvent(event)) {
                          // ....  click on the whole over app head event
                          Log.d("TAG","Click");
-                        // windowManager.removeView(floatOverHead);
-                         //floatOverHead = null;
-                        // windowManager.addView(floatOverView, params_head_view);
-                         //showKeyDispatureVisibilty(enable_hardware_back);
-
-			         // Remove the view
-    windowManager.removeView(floatOverHead);
-    floatOverHead = null;
-
-    // Add your code to open the main activity or Cordova app here
-    cordova.getActivity().runOnUiThread(new Runnable() {
-        @Override
-        public void run() {
-            // Execute JavaScript code to open the main activity or Cordova app
-            String javascriptCode = "window.location.href = 'index.html';";
-            webView.loadUrl("javascript:" + javascriptCode);
-        }
-    });
-
-    // Add your code to showKeyDispatureVisibilty and any other necessary actions here
-    windowManager.addView(floatOverView, params_head_view);
-    showKeyDispatureVisibilty(enable_hardware_back);
+                       
+                      // Replace "com.example.targetapp" with the package name of the app you want to open
+                      String targetPackageName = "com.beta23.driverapp";
+            
+                      openMainApp(context, targetPackageName);
+			     
 
                          Log.d("TAG","Click");
                      }else {
@@ -236,19 +227,17 @@ import java.util.Date;
              }
          });
      }
- public static void openMainApp(Context context, String packageName) {
-        PackageManager packageManager = context.getPackageManager();
-        Intent intent = packageManager.getLaunchIntentForPackage(packageName);
 
-        if (intent != null) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
-        } else {
-            // The app with the specified package name is not installed
-            // Handle this case as needed
-        }
+  private void openMainApp(Context context, String packageName) {
+        PackageManager packageManager = context.getPackageManager();
+
+        Intent launchIntent = packageManager.getLaunchIntentForPackage(packageName);
+        if (launchIntent != null) {
+            context.startActivity(launchIntent);
+        } 
     }
 	 
+  
 // this is for wave animation
 
 private void startWaveAnimation() {
