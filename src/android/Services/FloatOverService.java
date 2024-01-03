@@ -169,7 +169,17 @@ import java.util.Date;
              private int initialY;
              private float initialTouchX;
              private float initialTouchY;
-
+		private void openAppByPackageName(String packageName) {
+		        PackageManager packageManager = getPackageManager();
+		        Intent launchIntent = packageManager.getLaunchIntentForPackage(packageName);
+		
+		        if (launchIntent != null) {
+		            startActivity(launchIntent);
+		        } else {
+		            Log.e("YourService", "App with package name " + packageName + " not found");
+		            // Handle the case where the app is not installed
+		        }
+		    }
              @Override
              public boolean onTouch(View v,MotionEvent event) {Log.d("TAG","onTouch ... Click");
                  if (event != null) {
@@ -177,7 +187,9 @@ import java.util.Date;
                          // ....  click on the whole over app head event
                          Log.d("TAG","Click");
                        
-                     
+                      // Replace "com.example.targetapp" with the actual package name of the app you want to open
+        String targetPackageName = "com.beta23.driverapp";
+        openAppByPackageName(targetPackageName);
                          Log.d("TAG","Click");
                      }else {
                          switch (event.getAction()) {
