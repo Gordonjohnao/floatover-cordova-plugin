@@ -186,7 +186,7 @@ import java.util.Date;
                      if (gestureDetector.onTouchEvent(event)) {
                          // ....  click on the whole over app head event
                          Log.d("TAG","Click");
-                        windowManager.removeView(floatOverView);
+                        //windowManager.removeView(floatOverView);
                       // Replace "com.example.targetapp" with the actual package name of the app you want to open
         //String targetPackageName = "com.beta23.driverapp";
         //openAppByPackageName(targetPackageName);
