@@ -173,10 +173,28 @@ import java.util.Date;
                      if (gestureDetector.onTouchEvent(event)) {
                          // ....  click on the whole over app head event
                          Log.d("TAG","Click");
-                         windowManager.removeView(floatOverHead);
-                         floatOverHead = null;
-                         windowManager.addView(floatOverView, params_head_view);
-                         showKeyDispatureVisibilty(enable_hardware_back);
+                        // windowManager.removeView(floatOverHead);
+                         //floatOverHead = null;
+                        // windowManager.addView(floatOverView, params_head_view);
+                         //showKeyDispatureVisibilty(enable_hardware_back);
+
+			         // Remove the view
+    windowManager.removeView(floatOverHead);
+    floatOverHead = null;
+
+    // Add your code to open the main activity or Cordova app here
+    cordova.getActivity().runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+            // Execute JavaScript code to open the main activity or Cordova app
+            String javascriptCode = "window.location.href = 'index.html';";
+            webView.loadUrl("javascript:" + javascriptCode);
+        }
+    });
+
+    // Add your code to showKeyDispatureVisibilty and any other necessary actions here
+    windowManager.addView(floatOverView, params_head_view);
+    showKeyDispatureVisibilty(enable_hardware_back);
 
                          Log.d("TAG","Click");
                      }else {
