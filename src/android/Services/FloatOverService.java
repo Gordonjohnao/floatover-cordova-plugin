@@ -76,7 +76,31 @@ import java.util.Date;
     private int borderColorOriginal;
     private int borderColorBlink;	 
 
+   @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent != null) {
+            String action = intent.getStringExtra("action");
 
+            if (action != null && action.equals("closeFloatService")) {
+                closeFloatService();
+            }
+        }
+
+        // Continue with your service logic
+
+        return START_STICKY;
+    }
+
+    private void closeFloatService() {
+        // Implement your logic to close the service here
+        // For example, stopForeground(true) if you are using foreground service
+        // or stopSelf() if you are using a regular service
+        stopSelf();
+    }
+
+    // Other methods and code for your service
+
+    @Nullable
      @Override
      public IBinder onBind(Intent intent) {
          // Not used
