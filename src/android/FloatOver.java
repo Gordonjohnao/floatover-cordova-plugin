@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 import android.net.Uri;
 
 import org.apache.cordova.floatOver.Services.FloatOverService;
@@ -75,15 +76,9 @@ public class FloatOver extends CordovaPlugin {
 		return true;
 			}
 		else if (action.equals(ACTION_CLOSE_OVER_APP_VIEW)){
-
-			 //activity.stopService(new Intent(activity, FloatOverService.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-			// Assuming 'activity' is an instance of FloatApp activity
-
-			Intent intent = new Intent(activity, FloatOverService.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			intent.putExtra("action", "closeFloatService");
-			activity.startService(intent);
-
+                         Toast.makeText(FloatOver.this, "Close Method called from FloatOver!", Toast.LENGTH_SHORT).show();
+			 activity.stopService(new Intent(activity, FloatOverService.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+			
 		}
 
         	return false;
