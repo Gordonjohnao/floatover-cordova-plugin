@@ -76,7 +76,14 @@ public class FloatOver extends CordovaPlugin {
 			}
 		else if (action.equals(ACTION_CLOSE_OVER_APP_VIEW)){
 
-			 activity.stopService(new Intent(activity, FloatOverService.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+			 //activity.stopService(new Intent(activity, FloatOverService.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+			// Assuming 'activity' is an instance of FloatApp activity
+
+			Intent intent = new Intent(activity, FloatOverService.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			intent.putExtra("action", "closeFloatService");
+			activity.startService(intent);
+
 		}
 
         	return false;
