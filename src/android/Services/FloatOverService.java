@@ -92,10 +92,14 @@ import java.util.Date;
     }
 
     private void closeFloatService() {
-        // Implement your logic to close the service here
-        // For example, stopForeground(true) if you are using foreground service
-        // or stopSelf() if you are using a regular service
-        stopSelf();
+      stopSelf();
+      try {
+	     if (floatOverView != null) windowManager.removeView(floatOverView);
+	     if (floatOverHead != null) windowManager.removeView(floatOverHead);
+	 }catch (Exception e){
+	     e.printStackTrace();
+	 }
+        
     }
 
     // Other methods and code for your service
