@@ -76,32 +76,7 @@ import java.util.Date;
     private int borderColorOriginal;
     private int borderColorBlink;	 
 
-   @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        if (intent != null) {
-            String action = intent.getStringExtra("action");
-
-            if (action != null && action.equals("closeFloatService")) {
-                closeFloatService();
-            }
-        }
-
-        // Continue with your service logic
-
-        return START_STICKY;
-    }
-
-    private void closeFloatService() {
-      stopSelf();
-      try {
-	     if (floatOverView != null) windowManager.removeView(floatOverView);
-	     if (floatOverHead != null) windowManager.removeView(floatOverHead);
-	 }catch (Exception e){
-	     e.printStackTrace();
-	 }
-        
-    }
-
+  
     // Other methods and code for your service
 
 
