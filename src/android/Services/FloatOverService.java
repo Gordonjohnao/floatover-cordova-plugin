@@ -100,7 +100,7 @@ import java.util.Date;
 
     // Other methods and code for your service
 
-    @Nullable
+
      @Override
      public IBinder onBind(Intent intent) {
          // Not used
