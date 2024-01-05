@@ -115,7 +115,7 @@ import java.util.Date;
              startBlinkingAnimation();
         }
          imgClose = (ImageView) floatOverView.findViewById(R.id.imgClose);
-         imgClose.setOnClickListener(new View.OnClickListener() {
+         imageHead.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
                  stopSelf();
@@ -175,13 +175,13 @@ import java.util.Date;
                  if (event != null) {
                      if (gestureDetector.onTouchEvent(event)) {
                          // ....  click on the whole over app head event
-                         Log.d("TAG","Click");
-                         windowManager.removeView(floatOverHead);
-                         floatOverHead = null;
-                         windowManager.addView(floatOverView, params_head_view);
-                         showKeyDispatureVisibilty(enable_hardware_back);
+                         //Log.d("TAG","Click");
+                         //windowManager.removeView(floatOverHead);
+                         //floatOverHead = null;
+                         //windowManager.addView(floatOverView, params_head_view);
+                         //showKeyDispatureVisibilty(enable_hardware_back);
 
-                         Log.d("TAG","Click");
+                         //Log.d("TAG","Click");
                      }else {
                          switch (event.getAction()) {
                              case MotionEvent.ACTION_DOWN:
