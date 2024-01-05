@@ -76,7 +76,22 @@ import java.util.Date;
     private int borderColorOriginal;
     private int borderColorBlink;	 
 
-  
+   @Override
+    public void onClick(View v) {
+        // Handle the click event here
+        // For example, you can add your logic to respond to the click event
+        if (v.getId() == R.id.imageHead) {
+            // Handle button click
+            // For example, stop the service
+            stopSelf();
+            try {
+                if (floatOverView != null) windowManager.removeView(floatOverView);
+                if (floatOverHead != null) windowManager.removeView(floatOverHead);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
     // Other methods and code for your service
 
 
@@ -567,24 +582,6 @@ private void startBlinkingAnimation() {
       public void openApp(){
         //mContext.startActivity(new Intent(mContext,com.beta23.driverapp.MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
       }
-
-	     
-   @Override
-    public void onClick(View v) {
-        // Handle the click event here
-        // For example, you can add your logic to respond to the click event
-        if (v.getId() == R.id.imageHead) {
-            // Handle button click
-            // For example, stop the service
-            stopSelf();
-            try {
-                if (floatOverView != null) windowManager.removeView(floatOverView);
-                if (floatOverHead != null) windowManager.removeView(floatOverHead);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
 
 	     
