@@ -8,7 +8,18 @@ module.exports = {
     startOverApp: function (options,successCallback, failureCallback) {
         cordova.exec(successCallback, failureCallback, 'FloatOver', 'open', [ options ]);
     },
+    //closeOverApp: function () {
+        //cordova.exec(nooperation, nooperation, 'FloatOver', 'close', []);
+    //}
     closeOverApp: function () {
-        cordova.exec(nooperation, nooperation, 'FloatOver', 'close', []);
-    }
+    console.log('Calling closeOverApp');
+    cordova.exec(
+        function () { console.log('Success callback'); },
+        function (error) { console.error('Error callback:', error); },
+        'FloatOver',
+        'close',
+        []
+    );
+}
+
 };
