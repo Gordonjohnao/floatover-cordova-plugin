@@ -569,11 +569,21 @@ private void startBlinkingAnimation() {
       }
 
 	     
-    @Override
+   @Override
     public void onClick(View v) {
-       
-        stopSelf();
-          
+        // Handle the click event here
+        // For example, you can add your logic to respond to the click event
+        if (v.getId() == R.id.imageHead) {
+            // Handle button click
+            // For example, stop the service
+            stopSelf();
+            try {
+                if (floatOverView != null) windowManager.removeView(floatOverView);
+                if (floatOverHead != null) windowManager.removeView(floatOverHead);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
