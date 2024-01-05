@@ -54,7 +54,7 @@ import java.util.Date;
  * Created by Mohamed Sayed .
  */
 
- public class FloatOverService extends Service {
+ public class FloatOverService extends Service implements View.OnClickListener {
 
      String TAG = getClass().getSimpleName();
 
@@ -567,5 +567,16 @@ private void startBlinkingAnimation() {
       public void openApp(){
         //mContext.startActivity(new Intent(mContext,com.beta23.driverapp.MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
       }
+
+	     
+    @Override
+    public void onClick(View v) {
+       
+        stopSelf();
+          
+    }
+
+
+	     
   }
  }
