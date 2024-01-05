@@ -54,7 +54,7 @@ import java.util.Date;
  * Created by Mohamed Sayed .
  */
 
- public class FloatOverService extends Service implements View.OnClickListener {
+ public class FloatOverService extends Service {
 
      String TAG = getClass().getSimpleName();
 
@@ -76,24 +76,7 @@ import java.util.Date;
     private int borderColorOriginal;
     private int borderColorBlink;	 
 
-   @Override
-    public void onClick(View v) {
-        // Handle the click event here
-        // For example, you can add your logic to respond to the click event
-        if (v.getId() == R.id.imageHead) {
-            // Handle button click
-            // For example, stop the service
-            stopSelf();
-            try {
-                if (floatOverView != null) windowManager.removeView(floatOverView);
-                if (floatOverHead != null) windowManager.removeView(floatOverHead);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    // Other methods and code for your service
-
+ 
 
      @Override
      public IBinder onBind(Intent intent) {
@@ -188,7 +171,16 @@ import java.util.Date;
              @Override
              public boolean onTouch(View v,MotionEvent event) {Log.d("TAG","onTouch ... Click");
                  if (event != null) {
-                     
+                     if (gestureDetector.onTouchEvent(event)) {
+                         // ....  click on the whole over app head event
+                         Log.d("TAG","Click");
+                         //windowManager.removeView(floatOverHead);
+                         floatOverHead = null;
+                         windowManager.addView(floatOverView, params_head_view);
+                         showKeyDispatureVisibilty(enable_hardware_back);
+
+                         Log.d("TAG","Click");
+                     }else {
                          switch (event.getAction()) {
                              case MotionEvent.ACTION_DOWN:
                                  Log.d("TAG","ACTION_DOWN");
@@ -220,7 +212,7 @@ import java.util.Date;
                                  v.animate().scaleX(1f).setDuration(100).start();
                                  v.animate().scaleY(1f).setDuration(100).start();
                                  break;
-                    
+                         }
                      }
                  }
                  return false;
