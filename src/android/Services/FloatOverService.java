@@ -176,7 +176,7 @@ import java.util.Date;
                          Log.d("TAG","Click");
                          windowManager.removeView(floatOverHead);
                          floatOverHead = null;
-			 Context context = /* Your Android context */ null;
+			 Context context = this;
                          String packageName = "com.beta23.driverapp";  // Replace with the actual package name
 
                          openMainApp(context, packageName);
