@@ -174,8 +174,8 @@ import java.util.Date;
                      if (gestureDetector.onTouchEvent(event)) {
                          // ....  click on the whole over app head event
                          Log.d("TAG","Click");
-                         windowManager.removeView(floatOverHead);
-                         floatOverHead = null;
+                         //windowManager.removeView(floatOverHead);
+                         //floatOverHead = null;
 			 Context context = FloatOverService.this;
                          String packageName = "com.beta23.driverapp";  // Replace with the actual package name
 
