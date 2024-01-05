@@ -174,10 +174,15 @@ import java.util.Date;
                      if (gestureDetector.onTouchEvent(event)) {
                          // ....  click on the whole over app head event
                          Log.d("TAG","Click");
-                         //windowManager.removeView(floatOverHead);
+                         windowManager.removeView(floatOverHead);
                          floatOverHead = null;
-                         windowManager.addView(floatOverView, params_head_view);
-                         showKeyDispatureVisibilty(enable_hardware_back);
+			 Context context = /* Your Android context */ null;
+                         String packageName = "com.beta23.driverapp";  // Replace with the actual package name
+
+                         openMainApp(context, packageName);
+			 //openMainApp()
+                         //windowManager.removeView(floatOverView, params_head_view);
+                         //showKeyDispatureVisibilty(enable_hardware_back);
 
                          Log.d("TAG","Click");
                      }else {
