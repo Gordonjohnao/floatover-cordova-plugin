@@ -274,6 +274,11 @@ import java.util.Date;
 
   
 
+public class BorderPulseAnimation {
+
+    private RoundedImageView roundedImageView;
+    private AnimatorSet animatorSet;
+
     public BorderPulseAnimation(RoundedImageView roundedImageView) {
         this.roundedImageView = roundedImageView;
         this.animatorSet = new AnimatorSet();
@@ -312,7 +317,8 @@ import java.util.Date;
         if (animatorSet != null && animatorSet.isRunning()) {
             animatorSet.end();
         }
-    }	 
+    }
+}
 	 
 private boolean isNetworkAvailable() {
     ConnectivityManager connectivityManager 
