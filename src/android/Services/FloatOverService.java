@@ -87,6 +87,7 @@ import java.util.Date;
     private int animationDuration = 1000;// Pulse animation duration in milliseconds
 
     public static final String ACTION_STOP_SERVICE = "org.apache.cordova.floatOver.Services.STOP_SERVICE";
+    RipplePulseLayout mRipplePulseLayout;
 
   	 
 	
@@ -115,6 +116,7 @@ import java.util.Date;
          floatOverView = inflater.inflate(R.layout.service_over_apps_view, null, false);
          webView = (WebView) floatOverView.findViewById(R.id.webView);
          imageHead = (ImageView) floatOverHead.findViewById(R.id.imageHead);
+	 mRipplePulseLayout  = findViewById(R.id.imageHead);
 	
 	 //startBlinkingAnimation();
 	// Save the original border color
@@ -135,15 +137,7 @@ import java.util.Date;
         // Start the pulsating animation
        // startPulsatingAnimation();
 
-	             // Set the original border color value manually
-        originalBorderColor = 0xFF0000FF; // Set the desired color value
-
-        // Set the pulsating border color value manually
-        pulsatingBorderColor = 0xFFFF0000; // Set the desired color value
-
-        // Start the pulsating animation
-        startPulsatingAnimation();
-	     
+	mRipplePulseLayout.startRippleAnimation();
 
          imgClose = (ImageView) floatOverView.findViewById(R.id.imgClose);
          imgClose.setOnClickListener(new View.OnClickListener() {
