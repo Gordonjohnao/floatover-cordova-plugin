@@ -33,7 +33,6 @@ import android.webkit.JavascriptInterface;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import android.net.NetworkCapabilities;
-import com.gauravbhola.ripplepulsebackground.RipplePulseLayout;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.graphics.drawable.GradientDrawable;
@@ -87,7 +86,7 @@ import java.util.Date;
     private int animationDuration = 1000;// Pulse animation duration in milliseconds
 
     public static final String ACTION_STOP_SERVICE = "org.apache.cordova.floatOver.Services.STOP_SERVICE";
-    RipplePulseLayout mRipplePulseLayout;
+
 
   	 
 	
@@ -116,7 +115,7 @@ import java.util.Date;
          floatOverView = inflater.inflate(R.layout.service_over_apps_view, null, false);
          webView = (WebView) floatOverView.findViewById(R.id.webView);
          imageHead = (ImageView) floatOverHead.findViewById(R.id.imageHead);
-	 mRipplePulseLayout  = (RipplePulseLayout) floatOverHead.findViewById(R.id.imageHead);
+	
 	    
 	
 	 //startBlinkingAnimation();
@@ -137,8 +136,19 @@ import java.util.Date;
 
         // Start the pulsating animation
        // startPulsatingAnimation();
+	ImageView iv = (ImageView) findViewById(R.id.imageHead);
 
-	mRipplePulseLayout.startRippleAnimation();
+	ObjectAnimator scaleDown = ObjectAnimator.ofPropertyValuesHolder(
+	                    iv,
+	                    PropertyValuesHolder.ofFloat("scaleX", 1.2f),
+	                    PropertyValuesHolder.ofFloat("scaleY", 1.2f));
+	scaleDown.setDuration(310);
+	
+	scaleDown.setRepeatCount(ObjectAnimator.INFINITE);
+	scaleDown.setRepeatMode(ObjectAnimator.REVERSE);
+	
+	scaleDown.start();   
+
 
          imgClose = (ImageView) floatOverView.findViewById(R.id.imgClose);
          imgClose.setOnClickListener(new View.OnClickListener() {
