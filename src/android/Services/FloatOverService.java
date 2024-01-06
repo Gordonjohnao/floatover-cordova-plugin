@@ -43,7 +43,7 @@ import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaInterface;
 import android.app.Activity;
 import android.content.pm.PackageManager;
-
+import android.net.NetworkInfo;
 import org.apache.cordova.floatOver.Services.ServiceParameters;
 import org.apache.cordova.floatOver.GeneralUtils.KeyDispatchLayout;
 
@@ -70,6 +70,9 @@ import java.util.Date;
      ServiceParameters serviceParameters;
      private GestureDetector gestureDetector;
      private Context mContext;
+
+    private static final String TAG = "InternetCheck";
+    private static final int CHECK_INTERVAL = 1000; // 1 second interval	 
 
     private Handler handler = new Handler();
     private int blinkDuration = 500; // Blinking duration in milliseconds
@@ -113,10 +116,23 @@ import java.util.Date;
         // Set the blinking color manually (for example, a lighter shade of blue)
         borderColorBlink = Color.parseColor("#d90f23"); // Manually set the color
         // Start the blinking animation
-	 if (isInternetActive()) {
-            // Start the wave animation
-             startBlinkingAnimation();
-        }
+	handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (isInternetActive()) {
+                    // Internet is available, start the wave animation or any other action
+                    Log.d(TAG, "Internet is active");
+                    startBlinkingAnimation();
+                } else {
+                    // Internet is not available
+                    Log.d(TAG, "Internet is not active");
+                }
+
+                // Schedule the next check
+                handler.postDelayed(this, CHECK_INTERVAL);
+            }
+        }, CHECK_INTERVAL);
+
          imgClose = (ImageView) floatOverView.findViewById(R.id.imgClose);
          imgClose.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -229,6 +245,18 @@ import java.util.Date;
              }
          });
      }
+
+private boolean isInternetActive() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if (connectivityManager != null) {
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            return networkInfo != null && networkInfo.isConnected();
+        }
+
+        return false;
+    }	 
  public static void openMainApp(Context context, String packageName) {
         PackageManager packageManager = context.getPackageManager();
         Intent intent = packageManager.getLaunchIntentForPackage(packageName);
@@ -278,11 +306,7 @@ private void startWaveAnimation() {
         imageHead.startAnimation(waveAnimation);
     }
 
-    private boolean isInternetActive() {
-        // Implement your internet connectivity check here
-        // Return true if the internet is active, false otherwise
-        return true;
-    }
+   
 
 // this is for blinking functionality
 	/*private void startBlinkingAnimation() {
@@ -358,8 +382,9 @@ private void startBlinkingAnimation() {
      public void onDestroy() {
          super.onDestroy();
 	 imageHead.clearAnimation();
-	  windowManager.removeView(floatOverHead);
-          floatOverHead = null;
+	windowManager.removeView(floatOverHead);
+        floatOverHead = null;
+	handler.removeCallbacksAndMessages(null);
 	     
          try {
              if (floatOverView != null) {
