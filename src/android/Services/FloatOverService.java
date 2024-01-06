@@ -116,7 +116,7 @@ import java.util.Date;
          floatOverView = inflater.inflate(R.layout.service_over_apps_view, null, false);
          webView = (WebView) floatOverView.findViewById(R.id.webView);
          imageHead = (ImageView) floatOverHead.findViewById(R.id.imageHead);
-	 mRipplePulseLayout  = floatOverHead.findViewById(R.id.imageHead);
+	 mRipplePulseLayout  = (RipplePulseLayout) floatOverHead.findViewById(R.id.imageHead);
 	    
 	
 	 //startBlinkingAnimation();
