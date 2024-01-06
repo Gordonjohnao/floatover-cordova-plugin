@@ -29,6 +29,10 @@ import android.net.ConnectivityManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
+
+import android.animation.PropertyValuesHolder;
+
+
 import android.webkit.JavascriptInterface;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -136,7 +140,7 @@ import java.util.Date;
 
         // Start the pulsating animation
        // startPulsatingAnimation();
-	ImageView iv = (ImageView) findViewById(R.id.imageHead);
+	ImageView iv =  (ImageView) floatOverHead.findViewById(R.id.imageHead);
 
 	ObjectAnimator scaleDown = ObjectAnimator.ofPropertyValuesHolder(
 	                    iv,
