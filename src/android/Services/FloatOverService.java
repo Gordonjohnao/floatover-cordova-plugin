@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.webkit.JavascriptInterface;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import android.net.NetworkCapabilities;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
@@ -248,15 +249,15 @@ private boolean isInternetActive() {
             // For Android 10 (API level 29) and above
             NetworkCapabilities capabilities = connectivityManager
                     .getNetworkCapabilities(connectivityManager.getActiveNetwork());
-            //return capabilities != null &&
-                    //(capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-                           // capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI));
-		return true;  
+            return capabilities != null &&
+                    (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI));
+		  
         } else {
             // For Android versions before 10
             NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-            //return networkInfo != null && networkInfo.isConnected();
-		return true;  
+            return networkInfo != null && networkInfo.isConnected();
+		 
         }
 	  
     }
