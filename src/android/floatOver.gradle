@@ -6,6 +6,5 @@ repositories {
 
 dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
-    implementation 'com.gauravbhola.ripplepulsebackground:library:1.0.0'
 
 }
