@@ -33,7 +33,7 @@ import android.webkit.JavascriptInterface;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import android.net.NetworkCapabilities;
-
+import com.gauravbhola.ripplepulsebackground.RipplePulseLayout;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.graphics.drawable.GradientDrawable;
@@ -116,7 +116,8 @@ import java.util.Date;
          floatOverView = inflater.inflate(R.layout.service_over_apps_view, null, false);
          webView = (WebView) floatOverView.findViewById(R.id.webView);
          imageHead = (ImageView) floatOverHead.findViewById(R.id.imageHead);
-	 mRipplePulseLayout  = findViewById(R.id.imageHead);
+	 mRipplePulseLayout  = (ImageView) floatOverHead.findViewById(R.id.imageHead);
+	    
 	
 	 //startBlinkingAnimation();
 	// Save the original border color
