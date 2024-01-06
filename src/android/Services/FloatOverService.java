@@ -113,11 +113,11 @@ import java.util.Date;
 	
 	 //startBlinkingAnimation();
 	// Save the original border color
-	 borderColorOriginal = Color.BLUE;
+        borderColorOriginal = Color.BLUE;
         // Set the blinking color manually (for example, a lighter shade of blue)
         borderColorBlink = Color.parseColor("#d90f23"); // Manually set the color
         // Start the blinking animation
-	/*handler.postDelayed(new Runnable() {
+	handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (isNetworkAvailable()) {
@@ -126,20 +126,9 @@ import java.util.Date;
                 // Schedule the next check
                 handler.postDelayed(this, CHECK_INTERVAL);
             }
-        }, CHECK_INTERVAL);*/
+        }, CHECK_INTERVAL);
 
-handler.post(new Runnable() {
-    @Override
-    public void run() {
-        if (isNetworkAvailable()) {
-             startBlinkingAnimation();
-        } else {
-            // Handle the case when the network is not available
-        }
-        // Schedule the next check
-        handler.post(this);
-    }
-});
+
 
          imgClose = (ImageView) floatOverView.findViewById(R.id.imgClose);
          imgClose.setOnClickListener(new View.OnClickListener() {
@@ -257,7 +246,7 @@ private boolean isNetworkAvailable() {
     ConnectivityManager connectivityManager 
           = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
     NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
-    return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    return true;
 }
 	 
 private boolean isInternetActive() {
