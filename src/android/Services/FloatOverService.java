@@ -117,7 +117,8 @@ import java.util.Date;
         borderColorBlink = Color.parseColor("#d90f23"); // Manually set the color
         // Start the blinking animation
        if (isInternetActive()) {
-        startBlinkingAnimation();
+        //startBlinkingAnimation();
+	 startPulsatingAnimation();
         } 
 	     
 
@@ -183,7 +184,7 @@ import java.util.Date;
                      if (gestureDetector.onTouchEvent(event)) {
                          // ....  click on the whole over app head event
                          Log.d("TAG","Click");
-                         //windowManager.removeView(floatOverHead);
+                         windowManager.removeView(floatOverHead);
                          //floatOverHead = null;
 			 Context context = FloatOverService.this;
                          String packageName = "com.beta23.driverapp";  // Replace with the actual package name
@@ -376,9 +377,42 @@ private void startBlinkingAnimation() {
         }
     }, blinkDuration);
 }
+private void startPulsatingAnimation() {
+    final int originalColor = Color.BLUE;
+    final int blinkingColor = Color.parseColor("#d90f23"); // Manually set the color
+    final int animationDuration = 1000; // Duration of the pulsating animation in milliseconds
+
+    ValueAnimator animator = ValueAnimator.ofObject(new ArgbEvaluator(), originalColor, blinkingColor);
+    animator.setDuration(animationDuration);
+    animator.setRepeatMode(ValueAnimator.REVERSE);
+    animator.setRepeatCount(ValueAnimator.INFINITE);
+
+    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        @Override
+        public void onAnimationUpdate(ValueAnimator animator) {
+            int animatedValue = (int) animator.getAnimatedValue();
+            animateBorderColor(animatedValue, originalColor);
+        }
+    });
+
+    animator.start();
+}
+
+private void animateBorderColor(int fromColor, int toColor) {
+    if (isInternetActive()) {
+        // Use the targetColor to update your view's border color
+        // For example, if you're updating a View with a border, you might do something like:
+        imageHead.setBorderColor(toColor);
+    } else {
+        // If internet is not available, show only the original color
+        // For example:
+        imageHead.setBorderColor(fromColor);
+    }
+}
 
 
-    private void animateBorderColor(int fromColor, int toColor) {
+
+   /* private void animateBorderColor(int fromColor, int toColor) {
         GradientDrawable borderDrawable = createBorderDrawable(toColor);
         ObjectAnimator animator = ObjectAnimator.ofObject(
                 imageHead,
@@ -390,7 +424,7 @@ private void startBlinkingAnimation() {
 
         animator.setDuration(blinkDuration / 2); // Blinking speed
         animator.start();
-    }
+    }*/
 
     private GradientDrawable createBorderDrawable(int color) {
         GradientDrawable borderDrawable = new GradientDrawable();
