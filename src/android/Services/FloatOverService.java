@@ -76,6 +76,10 @@ import java.util.Date;
     private int borderColorOriginal;
     private int borderColorBlink;	 
 
+    public static final String ACTION_STOP_SERVICE = "org.apache.cordova.floatOver.Services.STOP_SERVICE";
+	 
+	 
+
  
 
      @Override
@@ -90,6 +94,7 @@ import java.util.Date;
          super.onCreate();
          Log.d(TAG,"onCreate");
 
+	
          gestureDetector = new GestureDetector(this, new SingleTapConfirm());
 
          serviceParameters = new ServiceParameters(this);
@@ -353,6 +358,9 @@ private void startBlinkingAnimation() {
      public void onDestroy() {
          super.onDestroy();
 	 imageHead.clearAnimation();
+	  windowManager.removeView(floatOverHead);
+          floatOverHead = null;
+	     
          try {
              if (floatOverView != null) {
                windowManager.removeView(floatOverView);
