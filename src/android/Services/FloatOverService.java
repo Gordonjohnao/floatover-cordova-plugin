@@ -9,6 +9,7 @@ import android.graphics.Point;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.animation.ValueAnimator;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
