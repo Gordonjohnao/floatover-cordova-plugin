@@ -6,6 +6,6 @@ repositories {
 
 dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
-    implementation 'pl.bclogic:pulsator4droid:1.0.3'
+    implementation 'com.gauravbhola.ripplepulsebackground:library:1.0.0'
 
 }
