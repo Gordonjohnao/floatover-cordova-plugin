@@ -401,13 +401,23 @@ private void startPulsatingAnimation() {
 
 private void animateBorderColor(int fromColor, int toColor) {
     if (isInternetActive()) {
-        // Use the targetColor to update your view's border color
-        // For example, if you're updating a View with a border, you might do something like:
-        imageHead.setBorderColor(toColor);
+        GradientDrawable borderDrawable = createBorderDrawable(toColor);
+        ObjectAnimator animator = ObjectAnimator.ofObject(
+                imageHead,
+                "borderColor",
+                new ArgbEvaluator(),
+                toColor,
+                toColor
+        );
     } else {
-        // If internet is not available, show only the original color
-        // For example:
-        imageHead.setBorderColor(fromColor);
+        GradientDrawable borderDrawable = createBorderDrawable(toColor);
+        ObjectAnimator animator = ObjectAnimator.ofObject(
+                imageHead,
+                "borderColor",
+                new ArgbEvaluator(),
+                fromColor,
+                fromColor
+        );
     }
 }
 
