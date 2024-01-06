@@ -120,7 +120,7 @@ import java.util.Date;
 	handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (isInternetActive()) {
+                if (isNetworkAvailable()) {
                     startBlinkingAnimation();
                 } 
                 // Schedule the next check
@@ -240,6 +240,13 @@ import java.util.Date;
              }
          });
      }
+private boolean isNetworkAvailable() {
+    ConnectivityManager connectivityManager 
+          = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+    NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
+    return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+}
+	 
 private boolean isInternetActive() {
     ConnectivityManager connectivityManager =
             (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
