@@ -120,18 +120,6 @@ import java.util.Date;
         startBlinkingAnimation();
         } 
 	     
-	handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (isInternetActive()) {
-                    startBlinkingAnimation();
-                } 
-                // Schedule the next check
-                handler.postDelayed(this, CHECK_INTERVAL);
-            }
-        }, CHECK_INTERVAL);
-
-
 
          imgClose = (ImageView) floatOverView.findViewById(R.id.imgClose);
          imgClose.setOnClickListener(new View.OnClickListener() {
@@ -369,19 +357,26 @@ private void startWaveAnimation() {
         imageHead.startAnimation(blinkAnimation);
     }*/
 private void startBlinkingAnimation() {
-        handler.postDelayed(new Runnable() {
-	  	
-            @Override
-            public void run() {
-		 // Save the original border color
-	        borderColorOriginal = Color.BLUE;
-	        // Set the blinking color manually (for example, a lighter shade of blue)
-	        borderColorBlink = Color.parseColor("#d90f23"); // Manually set the color   
+    handler.postDelayed(new Runnable() {
+        @Override
+        public void run() {
+            // Save the original border color
+            borderColorOriginal = Color.BLUE;
+
+            if (isInternetActive()) {
+                // Set the blinking color manually (for example, a lighter shade of blue)
+                borderColorBlink = Color.parseColor("#d90f23"); // Manually set the color   
                 animateBorderColor(borderColorBlink, borderColorOriginal);
-                handler.postDelayed(this, blinkDuration);
+            } else {
+                // If internet is not available, show only the original color
+                animateBorderColor(borderColorOriginal, borderColorOriginal);
             }
-        }, blinkDuration);
-    }
+
+            handler.postDelayed(this, blinkDuration);
+        }
+    }, blinkDuration);
+}
+
 
     private void animateBorderColor(int fromColor, int toColor) {
         GradientDrawable borderDrawable = createBorderDrawable(toColor);
