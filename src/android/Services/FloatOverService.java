@@ -81,7 +81,7 @@ import java.util.Date;
     private int borderColorOriginal;
     private int borderColorBlink;	 
 
-    private RoundedImageView imageHead;
+   
     private int originalCornerRadius;
     private int pulsatingCornerRadius;
     private int animationDuration = 1000; // Pulse animation duration in milliseconds
@@ -416,7 +416,7 @@ private void startBlinkingAnimation() {
     private GradientDrawable createBorderDrawable(int cornerRadius) {
         GradientDrawable drawable = new GradientDrawable();
         drawable.setShape(GradientDrawable.RECTANGLE);
-        drawable.setStroke(4, getResources().getColor(R.color.border_color)); // Set border width and color
+        drawable.setStroke(4, Color.parseColor("#FF0000")); // Set border width and color manually
         drawable.setCornerRadius(cornerRadius);
         return drawable;
     }
