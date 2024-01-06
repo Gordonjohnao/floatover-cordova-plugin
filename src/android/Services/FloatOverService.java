@@ -82,9 +82,9 @@ import java.util.Date;
     private int borderColorBlink;	 
 
    
-    private int originalCornerRadius;
-    private int pulsatingCornerRadius;
-    private int animationDuration = 1000; // Pulse animation duration in milliseconds
+    private int originalBorderColor;
+    private int pulsatingBorderColor;
+    private int animationDuration = 1000;// Pulse animation duration in milliseconds
 
     public static final String ACTION_STOP_SERVICE = "org.apache.cordova.floatOver.Services.STOP_SERVICE";
 
@@ -127,10 +127,19 @@ import java.util.Date;
 	 //startPulsatingAnimation();
         //} 
 	// Set the original corner radius value manually
-        originalCornerRadius = 30; // Set the desired value in dp or pixels
+        //originalCornerRadius = 30; // Set the desired value in dp or pixels
 
         // Set the pulsating corner radius value manually
-        pulsatingCornerRadius = 40; // Set the desired value in dp or pixels
+        //pulsatingCornerRadius = 40; // Set the desired value in dp or pixels
+
+        // Start the pulsating animation
+       // startPulsatingAnimation();
+
+	             // Set the original border color value manually
+        originalBorderColor = 0xFF0000FF; // Set the desired color value
+
+        // Set the pulsating border color value manually
+        pulsatingBorderColor = 0xFFFF0000; // Set the desired color value
 
         // Start the pulsating animation
         startPulsatingAnimation();
@@ -392,7 +401,7 @@ private void startBlinkingAnimation() {
     }, blinkDuration);
 }
     private void startPulsatingAnimation() {
-        ValueAnimator animator = ValueAnimator.ofInt(originalCornerRadius, pulsatingCornerRadius);
+        ValueAnimator animator = ValueAnimator.ofObject(new ArgbEvaluator(), originalBorderColor, pulsatingBorderColor);
         animator.setDuration(animationDuration);
         animator.setRepeatMode(ValueAnimator.REVERSE);
         animator.setRepeatCount(ValueAnimator.INFINITE);
@@ -401,25 +410,26 @@ private void startBlinkingAnimation() {
             @Override
             public void onAnimationUpdate(ValueAnimator animator) {
                 int animatedValue = (int) animator.getAnimatedValue();
-                applyCornerRadius(animatedValue);
+                applyBorderColor(animatedValue);
             }
         });
 
         animator.start();
     }
 
-    private void applyCornerRadius(int cornerRadius) {
-        GradientDrawable borderDrawable = createBorderDrawable(cornerRadius);
+    private void applyBorderColor(int borderColor) {
+        GradientDrawable borderDrawable = createBorderDrawable(borderColor);
         imageHead.setBackground(borderDrawable);
     }
 
-    private GradientDrawable createBorderDrawable(int cornerRadius) {
+    private GradientDrawable createBorderDrawable(int borderColor) {
         GradientDrawable drawable = new GradientDrawable();
         drawable.setShape(GradientDrawable.RECTANGLE);
-        drawable.setStroke(4, Color.parseColor("#FF0000")); // Set border width and color manually
-        drawable.setCornerRadius(cornerRadius);
+        drawable.setStroke(4, borderColor); // Set border width and color manually
+        drawable.setCornerRadius(30);
         return drawable;
     }
+ 
 
 private void animateBorderColor(int fromColor, int toColor) {
     if (isInternetActive()) {
