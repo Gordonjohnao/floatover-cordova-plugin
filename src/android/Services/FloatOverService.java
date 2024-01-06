@@ -24,7 +24,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
-
+import android.net.ConnectivityManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -71,7 +71,7 @@ import java.util.Date;
      private GestureDetector gestureDetector;
      private Context mContext;
 
-    private static final String TAG = "InternetCheck";
+    private static final String NEW_TAG = "InternetCheck";
     private static final int CHECK_INTERVAL = 1000; // 1 second interval	 
 
     private Handler handler = new Handler();
@@ -121,11 +121,11 @@ import java.util.Date;
             public void run() {
                 if (isInternetActive()) {
                     // Internet is available, start the wave animation or any other action
-                    Log.d(TAG, "Internet is active");
+                    Log.d(NEW_TAG, "Internet is active");
                     startBlinkingAnimation();
                 } else {
                     // Internet is not available
-                    Log.d(TAG, "Internet is not active");
+                    Log.d(NEW_TAG, "Internet is not active");
                 }
 
                 // Schedule the next check
