@@ -81,10 +81,9 @@ import java.util.Date;
     private int borderColorBlink;	 
 
     public static final String ACTION_STOP_SERVICE = "org.apache.cordova.floatOver.Services.STOP_SERVICE";
-	 
-	 
 
- 
+  	 
+	
 
      @Override
      public IBinder onBind(Intent intent) {
@@ -117,10 +116,14 @@ import java.util.Date;
         // Set the blinking color manually (for example, a lighter shade of blue)
         borderColorBlink = Color.parseColor("#d90f23"); // Manually set the color
         // Start the blinking animation
+       if (isInternetActive()) {
+        startBlinkingAnimation();
+        } 
+	     
 	handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (isNetworkAvailable()) {
+                if (isInternetActive()) {
                     startBlinkingAnimation();
                 } 
                 // Schedule the next check
@@ -367,8 +370,13 @@ private void startWaveAnimation() {
     }*/
 private void startBlinkingAnimation() {
         handler.postDelayed(new Runnable() {
+	  	
             @Override
             public void run() {
+		 // Save the original border color
+	        borderColorOriginal = Color.BLUE;
+	        // Set the blinking color manually (for example, a lighter shade of blue)
+	        borderColorBlink = Color.parseColor("#d90f23"); // Manually set the color   
                 animateBorderColor(borderColorBlink, borderColorOriginal);
                 handler.postDelayed(this, blinkDuration);
             }
