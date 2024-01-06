@@ -81,6 +81,11 @@ import java.util.Date;
     private int borderColorOriginal;
     private int borderColorBlink;	 
 
+    private RoundedImageView imageHead;
+    private int originalCornerRadius;
+    private int pulsatingCornerRadius;
+    private int animationDuration = 1000; // Pulse animation duration in milliseconds
+
     public static final String ACTION_STOP_SERVICE = "org.apache.cordova.floatOver.Services.STOP_SERVICE";
 
   	 
@@ -113,14 +118,22 @@ import java.util.Date;
 	
 	 //startBlinkingAnimation();
 	// Save the original border color
-        borderColorOriginal = Color.BLUE;
+        //borderColorOriginal = Color.BLUE;
         // Set the blinking color manually (for example, a lighter shade of blue)
-        borderColorBlink = Color.parseColor("#d90f23"); // Manually set the color
+       // borderColorBlink = Color.parseColor("#d90f23"); // Manually set the color
         // Start the blinking animation
-       if (isInternetActive()) {
+      // if (isInternetActive()) {
         //startBlinkingAnimation();
-	 startPulsatingAnimation();
-        } 
+	 //startPulsatingAnimation();
+        //} 
+	// Set the original corner radius value manually
+        originalCornerRadius = 30; // Set the desired value in dp or pixels
+
+        // Set the pulsating corner radius value manually
+        pulsatingCornerRadius = 40; // Set the desired value in dp or pixels
+
+        // Start the pulsating animation
+        startPulsatingAnimation();
 	     
 
          imgClose = (ImageView) floatOverView.findViewById(R.id.imgClose);
@@ -378,26 +391,35 @@ private void startBlinkingAnimation() {
         }
     }, blinkDuration);
 }
-private void startPulsatingAnimation() {
-    final int originalColor = Color.BLUE;
-    final int blinkingColor = Color.parseColor("#d90f23"); // Manually set the color
-    final int animationDuration = 1000; // Duration of the pulsating animation in milliseconds
+    private void startPulsatingAnimation() {
+        ValueAnimator animator = ValueAnimator.ofInt(originalCornerRadius, pulsatingCornerRadius);
+        animator.setDuration(animationDuration);
+        animator.setRepeatMode(ValueAnimator.REVERSE);
+        animator.setRepeatCount(ValueAnimator.INFINITE);
 
-    ValueAnimator animator = ValueAnimator.ofObject(new ArgbEvaluator(), originalColor, blinkingColor);
-    animator.setDuration(animationDuration);
-    animator.setRepeatMode(ValueAnimator.REVERSE);
-    animator.setRepeatCount(ValueAnimator.INFINITE);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animator) {
+                int animatedValue = (int) animator.getAnimatedValue();
+                applyCornerRadius(animatedValue);
+            }
+        });
 
-    animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-        @Override
-        public void onAnimationUpdate(ValueAnimator animator) {
-            int animatedValue = (int) animator.getAnimatedValue();
-            animateBorderColor(animatedValue, originalColor);
-        }
-    });
+        animator.start();
+    }
 
-    animator.start();
-}
+    private void applyCornerRadius(int cornerRadius) {
+        GradientDrawable borderDrawable = createBorderDrawable(cornerRadius);
+        imageHead.setBackground(borderDrawable);
+    }
+
+    private GradientDrawable createBorderDrawable(int cornerRadius) {
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setShape(GradientDrawable.RECTANGLE);
+        drawable.setStroke(4, getResources().getColor(R.color.border_color)); // Set border width and color
+        drawable.setCornerRadius(cornerRadius);
+        return drawable;
+    }
 
 private void animateBorderColor(int fromColor, int toColor) {
     if (isInternetActive()) {
@@ -437,13 +459,13 @@ private void animateBorderColor(int fromColor, int toColor) {
         animator.start();
     }*/
 
-    private GradientDrawable createBorderDrawable(int color) {
+    /*private GradientDrawable createBorderDrawable(int color) {
         GradientDrawable borderDrawable = new GradientDrawable();
         borderDrawable.setShape(GradientDrawable.OVAL);
         borderDrawable.setStroke(4, color); // Adjust border width as needed
         imageHead.setBackground(borderDrawable);
         return borderDrawable;
-    }
+    }*/
 
 	 
      @Override
