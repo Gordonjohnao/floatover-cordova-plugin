@@ -29,10 +29,8 @@ import android.net.ConnectivityManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
-
 import android.animation.PropertyValuesHolder;
-
-
+import android.animation.AnimatorSet;
 import android.webkit.JavascriptInterface;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -82,7 +80,10 @@ import java.util.Date;
     private Handler handler = new Handler();
     private int blinkDuration = 500; // Blinking duration in milliseconds
     private int borderColorOriginal;
-    private int borderColorBlink;	 
+    private int borderColorBlink;	
+
+    private RoundedImageView roundedImageView;
+    private AnimatorSet animatorSet;
 
    
     private int originalBorderColor;
@@ -140,7 +141,7 @@ import java.util.Date;
 
         // Start the pulsating animation
        // startPulsatingAnimation();
-	ImageView iv =  (ImageView) floatOverHead.findViewById(R.id.imageHead);
+	/*ImageView iv =  (ImageView) floatOverHead.findViewById(R.id.imageHead);
 
 	ObjectAnimator scaleDown = ObjectAnimator.ofPropertyValuesHolder(
 	                    iv,
@@ -151,7 +152,11 @@ import java.util.Date;
 	scaleDown.setRepeatCount(ObjectAnimator.INFINITE);
 	scaleDown.setRepeatMode(ObjectAnimator.REVERSE);
 	
-	scaleDown.start();   
+	scaleDown.start();   */
+	RoundedImageView roundedImageView = floatOverHead.findViewById(R.id.imageHead);
+	BorderPulseAnimation borderPulseAnimation = new BorderPulseAnimation(roundedImageView);
+	borderPulseAnimation.startPulseAnimation();
+
 
 
          imgClose = (ImageView) floatOverView.findViewById(R.id.imgClose);
@@ -266,6 +271,49 @@ import java.util.Date;
              }
          });
      }
+
+  
+
+    public BorderPulseAnimation(RoundedImageView roundedImageView) {
+        this.roundedImageView = roundedImageView;
+        this.animatorSet = new AnimatorSet();
+    }
+
+    public void startPulseAnimation() {
+        int startColor = Color.parseColor("#0000FF");
+        int endColor = Color.parseColor("#FF0000");
+
+        ValueAnimator colorAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), startColor, endColor);
+        colorAnimator.setDuration(1000);
+        colorAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        colorAnimator.setRepeatMode(ValueAnimator.REVERSE);
+
+        colorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animator) {
+                int animatedValue = (int) animator.getAnimatedValue();
+                roundedImageView.setBorderColor(animatedValue);
+            }
+        });
+
+        ObjectAnimator scaleXAnimator = ObjectAnimator.ofFloat(roundedImageView, "scaleX", 1.2f);
+        scaleXAnimator.setRepeatCount(ObjectAnimator.INFINITE);
+        scaleXAnimator.setRepeatMode(ObjectAnimator.REVERSE);
+
+        ObjectAnimator scaleYAnimator = ObjectAnimator.ofFloat(roundedImageView, "scaleY", 1.2f);
+        scaleYAnimator.setRepeatCount(ObjectAnimator.INFINITE);
+        scaleYAnimator.setRepeatMode(ObjectAnimator.REVERSE);
+
+        animatorSet.playTogether(colorAnimator, scaleXAnimator, scaleYAnimator);
+        animatorSet.start();
+    }
+
+    public void stopPulseAnimation() {
+        if (animatorSet != null && animatorSet.isRunning()) {
+            animatorSet.end();
+        }
+    }	 
+	 
 private boolean isNetworkAvailable() {
     ConnectivityManager connectivityManager 
           = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
