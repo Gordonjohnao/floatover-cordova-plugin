@@ -72,7 +72,7 @@ import java.util.Date;
      private Context mContext;
 
     private static final String NEW_TAG = "InternetCheck";
-    private static final int CHECK_INTERVAL = 1000; // 1 second interval	 
+    private static final int CHECK_INTERVAL = 3000; // 1 second interval	 
 
     private Handler handler = new Handler();
     private int blinkDuration = 500; // Blinking duration in milliseconds
@@ -120,14 +120,8 @@ import java.util.Date;
             @Override
             public void run() {
                 if (isInternetActive()) {
-                    // Internet is available, start the wave animation or any other action
-                    Log.d(NEW_TAG, "Internet is active");
                     startBlinkingAnimation();
-                } else {
-                    // Internet is not available
-                    Log.d(NEW_TAG, "Internet is not active");
-                }
-
+                } 
                 // Schedule the next check
                 handler.postDelayed(this, CHECK_INTERVAL);
             }
@@ -245,8 +239,29 @@ import java.util.Date;
              }
          });
      }
-
 private boolean isInternetActive() {
+    ConnectivityManager connectivityManager =
+            (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+    if (connectivityManager != null) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+            // For Android 10 (API level 29) and above
+            NetworkCapabilities capabilities = connectivityManager
+                    .getNetworkCapabilities(connectivityManager.getActiveNetwork());
+            return capabilities != null &&
+                    (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI));
+        } else {
+            // For Android versions before 10
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            return networkInfo != null && networkInfo.isConnected();
+        }
+    }
+
+    return false;
+}
+
+/*private boolean isInternetActive() {
         ConnectivityManager connectivityManager =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -256,7 +271,7 @@ private boolean isInternetActive() {
         }
 
         return false;
-    }	 
+    }*/	 
  public static void openMainApp(Context context, String packageName) {
         PackageManager packageManager = context.getPackageManager();
         Intent intent = packageManager.getLaunchIntentForPackage(packageName);
